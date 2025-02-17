@@ -27,11 +27,10 @@ public class AuthenticationUser extends OncePerRequestFilter {
 
         var servletPath = request.getServletPath();
 
-        if (servletPath.equals("/cliente/create")) {
+        if (servletPath.startsWith("/cliente") ) {
 
         // String[] result = new String(Base64.getDecoder().decode(request.getHeader("Authorization").substring("Basic".length()).trim())).split(":");
-
-    
+           
             var authorization = request.getHeader("Authorization");
 
             var authEncoded = authorization.substring("Basic".length()).trim();
@@ -45,8 +44,10 @@ public class AuthenticationUser extends OncePerRequestFilter {
             String email = result[0];
             String password = result[1];
 
+
             var user = this.userRepository.findByEmail(email);
 
+        
             if(user == null){
                 response.sendError(401);
             }else{
@@ -55,6 +56,8 @@ public class AuthenticationUser extends OncePerRequestFilter {
                 if(passwordVerify.verified){
 
                     request.setAttribute("idUser", user.getId());
+
+
                     filterChain.doFilter(request, response);
 
                 }else{

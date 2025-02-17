@@ -1,14 +1,19 @@
 package br.com.tdsoft.registration.user;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import br.com.tdsoft.registration.utils.Utils;
 
 
 
@@ -45,7 +50,39 @@ public class UserController {
     }
 
 
-    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser (@RequestBody UserEntity userEntity, @PathVariable UUID id){
+
+        var userUpdate = this.userRepository.findById((id)).orElse(null);
+
+        if(userUpdate == null){
+            return ResponseEntity.notFound().build();
+        }
+
+
+        if(userEntity.getPassword() != null){
+
+            var passwordHashred =  BCrypt.withDefaults().hashToString(12, userEntity.getPassword().toCharArray());
+
+            userEntity.setPassword(passwordHashred); 
+            
+        }
+
+        Utils.copyNonNullProperties(userEntity, userUpdate);
+        
+        var result = this.userRepository.save(userUpdate);  
+
+
+        return ResponseEntity.status(200).body(result);
+
+        
+
+        
+
+        
+
+
+    }
 
 
 }

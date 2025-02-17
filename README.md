@@ -1,1 +1,0 @@
-# tdsoft_registration
