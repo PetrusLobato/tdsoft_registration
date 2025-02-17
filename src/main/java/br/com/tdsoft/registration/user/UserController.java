@@ -55,8 +55,13 @@ public class UserController {
 
         var userUpdate = this.userRepository.findById((id)).orElse(null);
 
+        
         if(userUpdate == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario não encontrado");
+        }
+
+        if(!userUpdate.getEmail().equals(userEntity.getEmail())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não tem permissão para essa tarefa o email deve ser compativel.");
         }
 
 
