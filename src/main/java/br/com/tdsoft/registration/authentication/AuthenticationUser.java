@@ -49,6 +49,7 @@ public class AuthenticationUser extends OncePerRequestFilter {
 
         
             if(user == null){
+
                 response.sendError(401);
                 
             }else{
@@ -57,7 +58,6 @@ public class AuthenticationUser extends OncePerRequestFilter {
                 if(passwordVerify.verified){
 
                     request.setAttribute("idUser", user.getId());
-
 
                     filterChain.doFilter(request, response);
 

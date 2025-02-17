@@ -29,6 +29,16 @@ public class ClienteEntity {
     private LocalDateTime createdAt;
 
     private UUID idUser;
-    
+
+
+    public void setDescription(String d) throws Exception{
+        if(d.length() > 300){
+
+            throw new Exception("Você passou do limite maximo de 300 caracteres");
+
+        }
+        this.description = d;
+    }
+
 
 }
