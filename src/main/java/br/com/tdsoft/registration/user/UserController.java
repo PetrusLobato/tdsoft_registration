@@ -1,5 +1,6 @@
 package br.com.tdsoft.registration.user;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.com.tdsoft.registration.utils.Utils;
 
@@ -44,6 +44,35 @@ public class UserController {
         var resultCreateUser = this.userRepository.save(userEntity);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(resultCreateUser);
+        
+
+        
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?>loginUser(@RequestBody UserEntity userEntity) {
+
+        var validadedEmail = this.userRepository.findByEmail(userEntity.getEmail());
+
+        if (validadedEmail == null) {
+            
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email ou senha incorreta");
+
+        }
+
+        byte[] passWordEntity = userEntity.getPassword().getBytes(StandardCharsets.UTF_8);
+        byte[] passWordUser = validadedEmail.getPassword().getBytes(StandardCharsets.UTF_8);
+
+        var passwordVerify = BCrypt.verifyer().verify(passWordEntity, passWordUser);
+
+        if(!passwordVerify.verified){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email ou senha incorreta");
+        }
+       
+        
+        return ResponseEntity.status(HttpStatus.OK).body("TOken: 9012912612789361287936128907");
         
 
         
