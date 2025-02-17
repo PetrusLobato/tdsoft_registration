@@ -59,19 +59,24 @@ public class ClienteController {
         var clienteList = this.clienteRepository.findByIdUser((UUID) idUser);
 
         
-
         return clienteList;
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCliente (@RequestBody ClienteEntity clienteEntity, @PathVariable UUID id){
+    public ResponseEntity<?> updateCliente (@RequestBody ClienteEntity clienteEntity, @PathVariable UUID id, HttpServletRequest request){
 
         var updateClient = this.clienteRepository.findById((id)).orElse(null);
 
-
         if(updateClient == null){
-            return ResponseEntity.notFound().build();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não existe");
+        }
+
+        var userId = request.getAttribute("idUser");
+
+        if(!updateClient.getIdUser().equals(userId)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não tem permissão para essa tarefa");
         }
 
         Utils.copyNonNullProperties(clienteEntity, updateClient);
@@ -86,14 +91,23 @@ public class ClienteController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCliente (@PathVariable UUID id){
+    public ResponseEntity<?> deleteCliente (@PathVariable UUID id, HttpServletRequest request){
+
+        var deleteClient = this.clienteRepository.findById((id)).orElse(null);
 
         if (!this.clienteRepository.existsById(id)) {
-            return ResponseEntity.notFound().build(); 
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não existe");
+        }
+
+        var userId = request.getAttribute("idUser");
+
+        if(!deleteClient.getIdUser().equals(userId)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não tem permissão para essa tarefa");
         }
 
         this.clienteRepository.deleteById(id);
-        return ResponseEntity.noContent().build(); 
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
         
     }

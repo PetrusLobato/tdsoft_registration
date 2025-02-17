@@ -50,6 +50,7 @@ public class AuthenticationUser extends OncePerRequestFilter {
         
             if(user == null){
                 response.sendError(401);
+                
             }else{
                 var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
 
