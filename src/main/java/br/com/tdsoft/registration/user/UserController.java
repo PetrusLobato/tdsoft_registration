@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.com.tdsoft.registration.utils.Utils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 
@@ -35,7 +40,13 @@ public class UserController {
 
     
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
+    @Tag(name = "User", description = "Create, update and login")
+    @Operation(summary = "Criação de usuario", description = "Cria apenas um usuario por e-mail")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso", content = @Content(schema = @Schema(implementation = UserEntity.class))),
+        @ApiResponse(responseCode = "400", description = "Email já cadastrado", content = @Content)
+    })
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserEntity userEntity) {
 
         var validadedEmail = this.userRepository.findByEmail(userEntity.getEmail());
 
@@ -61,6 +72,12 @@ public class UserController {
 
 
     @PostMapping("/login")
+    @Tag(name = "User", description = "Create, update and login")
+    @Operation(summary = "Login de acesso", description = "É gerado um token quando é logado ")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuário logado com sucesso", content = @Content(schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "400", description = "Email ou senha invalido", content = @Content)
+    })
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserEntity userEntity) {
 
         var validadedEmail = this.userRepository.findByEmail(userEntity.getEmail());
@@ -101,7 +118,9 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser (@RequestBody UserEntity userEntity, @PathVariable UUID id){
+    @Tag(name = "User", description = "Create, update and login")
+    @Operation(summary = "Atualização de dados", description = "É atualizado de acordo com o Id do usuario")
+    public ResponseEntity<?> updateUser (@Valid @RequestBody UserEntity userEntity, @PathVariable UUID id){
 
         var userUpdate = this.userRepository.findById((id)).orElse(null);
 

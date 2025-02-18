@@ -58,7 +58,10 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 
 ## Documentação do projeto
 
-- Link com a documentação completa do projeto [Documentação](http://localhost:8080/docs/swagger-ui).
+![alt text](image-2.png)
+
+- Link com a documentação completa do projeto [Documentação](http://localhost:8080/swagger-ui/index.html).
+
 
 ## Como executar os testes
 

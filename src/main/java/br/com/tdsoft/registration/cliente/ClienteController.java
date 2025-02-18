@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tdsoft.registration.utils.Utils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -28,6 +30,8 @@ public class ClienteController {
 
 
     @PostMapping("/create")
+    @Tag(name = "Cliente", description = "Create, update, read e Delete")
+    @Operation(summary = "Criação de cliente", description = "Usuario logado pode criar um cliente")
     public ResponseEntity<?> createCliente (@RequestBody ClienteEntity clienteEntity, HttpServletRequest request) {
 
         var idUser = request.getAttribute("idUser");
@@ -42,6 +46,8 @@ public class ClienteController {
     
 
     @GetMapping("/all")
+    @Tag(name = "Cliente", description = "Create, update, read e Delete")
+    @Operation(summary = "Busca", description = "Fazer uma busca com todos os clientes")
     public ResponseEntity<?> listCliente(){
 
         var listClientes = this.clienteRepository.findAll();
@@ -51,6 +57,8 @@ public class ClienteController {
 
 
     @GetMapping("/userlist")
+    @Tag(name = "Cliente", description = "Create, update, read e Delete")
+    @Operation(summary = "Busca", description = "Busca para os cliente do usuario")
     public List<ClienteEntity> allUserList(HttpServletRequest request){
        
 
@@ -64,6 +72,8 @@ public class ClienteController {
 
 
     @PutMapping("/{id}")
+    @Tag(name = "Cliente", description = "Create, update, read e Delete")
+    @Operation(summary = "Atualização de dados", description = "Atualização de dados de acordo com o Id")
     public ResponseEntity<?> updateCliente (@RequestBody ClienteEntity clienteEntity, @PathVariable UUID id, HttpServletRequest request){
 
         var updateClient = this.clienteRepository.findById((id)).orElse(null);
@@ -91,6 +101,8 @@ public class ClienteController {
 
 
     @DeleteMapping("/{id}")
+    @Tag(name = "Cliente", description = "Create, update, read e Delete")
+    @Operation(summary = "Deleta um cliente", description = "Deleta um cliente de acordo com Id")
     public ResponseEntity<?> deleteCliente (@PathVariable UUID id, HttpServletRequest request){
 
         var deleteClient = this.clienteRepository.findById((id)).orElse(null);
