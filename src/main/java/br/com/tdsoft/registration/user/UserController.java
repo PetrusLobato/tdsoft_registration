@@ -89,7 +89,7 @@ public class UserController {
                     .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
                     .sign(algorithm);
 
-                return ResponseEntity.ok(token);
+                return ResponseEntity.ok("Token" + token);
 
         } catch (JWTCreationException exception){
             throw new RuntimeException("Erro ao gerar o token", exception);

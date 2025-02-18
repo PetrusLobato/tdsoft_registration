@@ -6,7 +6,7 @@
 
 ## Funcionalidades do Usuario
 - Cadastro de usuário.
-- Login de usuário.
+- Login de usuário com geração de Token.
 - Atualização de dados do usuário.
 - Integração com banco de dados PostgreSQL.
 
@@ -33,7 +33,10 @@
 - PostgreSQL instalado e em execução
 
 ## Configuração do Banco de Dados
-Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados chamado `registration`. Atualize as credenciais de acesso no arquivo `env.Example`, quando atualizar as variaveis de ambiente, renomear o arquivo para `env`.
+Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados chamado `registration`. 
+
+- Duplique o arquivo ".env.example" e o renomeie para ".env".
+- Dentro do arquivo ".env" subistitua as variáveis pelas suas.
 
 
 ## Como Executar o Projeto
