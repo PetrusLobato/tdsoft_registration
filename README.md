@@ -58,10 +58,12 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 
 ## Documentação do projeto
 
-- Link com a documentação completa do projeto [Documentação](http://localhost:8080).
+- Link com a documentação completa do projeto [Documentação](http://localhost:8080/docs/swagger-ui).
 
 ## Como executar os testes
 
 ## Deploy 
+
+Caso queira criar o deploy o arquivo `Dockerfile` foi criado para gerar imagem para o deploy no Render.
 
 
