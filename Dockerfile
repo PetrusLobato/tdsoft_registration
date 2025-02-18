@@ -10,6 +10,6 @@ RUN cd app && mvn clean install
 
 EXPOSE 8080
 
-RUN cp -r /app/target/swagger_docs-1.0.0.jar /app/app.jar
+RUN cp -r /app/target/registration-0.0.1-SNAPSHOT.jar /app/app.jar
 
 ENTRYPOINT [ "java", "-jar", "/app/app.jar"]
