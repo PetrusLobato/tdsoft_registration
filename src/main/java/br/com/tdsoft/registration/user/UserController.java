@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -30,6 +31,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User", description = "Create, update and login")
 public class UserController {
 
     @Autowired
@@ -40,7 +42,6 @@ public class UserController {
 
     
     @PostMapping("/create")
-    @Tag(name = "User", description = "Create, update and login")
     @Operation(summary = "Criação de usuario", description = "Cria apenas um usuario por e-mail")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso", content = @Content(schema = @Schema(implementation = UserEntity.class))),
@@ -72,7 +73,6 @@ public class UserController {
 
 
     @PostMapping("/login")
-    @Tag(name = "User", description = "Create, update and login")
     @Operation(summary = "Login de acesso", description = "É gerado um token quando é logado ")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Usuário logado com sucesso", content = @Content(schema = @Schema(implementation = String.class))),
@@ -118,8 +118,8 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    @Tag(name = "User", description = "Create, update and login")
     @Operation(summary = "Atualização de dados", description = "É atualizado de acordo com o Id do usuario")
+    @SecurityRequirement(name = "authetication")
     public ResponseEntity<?> updateUser (@Valid @RequestBody UserEntity userEntity, @PathVariable UUID id){
 
         var userUpdate = this.userRepository.findById((id)).orElse(null);
