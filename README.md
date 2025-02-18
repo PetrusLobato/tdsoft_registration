@@ -50,7 +50,7 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
    ```
 
 
-    A API estará disponível em [http://localhost:8080](http://localhost:8080).
+   A API estará disponível em [http://localhost:8080](http://localhost:8080).
   
 
 ## Documentação do projeto
@@ -58,5 +58,7 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 - Link com a documentação completa do projeto [Documentação](http://localhost:8080).
 
 ## Como executar os testes
+
+## Deploy 
 
 

@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -25,8 +25,8 @@ public class UserEntity {
     private String name;
     private String password;
 
-    @Column(unique = true)
-    @NotNull(message = "O campo de e-mail não pode ser nulo")
+    @Column(unique = true, nullable = false)
+    @NotEmpty(message = "O campo de e-mail não pode ser nulo")
     @Email(message = "Deve colocar um email valido, ex: exemplo@gmail.com")
     private String email;
     

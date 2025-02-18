@@ -2,11 +2,9 @@ package br.com.tdsoft.registration.authentication;
 
 import java.io.IOException;
 import java.util.Base64;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.com.tdsoft.registration.user.IUserRepository;
 import jakarta.servlet.FilterChain;

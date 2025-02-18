@@ -1,9 +1,10 @@
 package br.com.tdsoft.registration.user;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.com.tdsoft.registration.utils.Utils;
+import jakarta.validation.Valid;
 
 
 
@@ -23,6 +29,10 @@ public class UserController {
 
     @Autowired
     private IUserRepository userRepository;
+
+    @Value("${security.token.secret}")
+    private String secret;
+
     
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
@@ -51,7 +61,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?>loginUser(@RequestBody UserEntity userEntity) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody UserEntity userEntity) {
 
         var validadedEmail = this.userRepository.findByEmail(userEntity.getEmail());
 
@@ -70,10 +80,21 @@ public class UserController {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email ou senha incorreta");
         }
-       
-        
-        return ResponseEntity.status(HttpStatus.OK).body("TOken: 9012912612789361287936128907");
-        
+
+        try {
+                Algorithm algorithm = Algorithm.HMAC256(secret);
+                String token = JWT.create()
+                    .withIssuer("auth-registration")
+                    .withSubject(validadedEmail.getId().toString())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
+                    .sign(algorithm);
+
+                return ResponseEntity.ok(token);
+
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("Erro ao gerar o token", exception);
+        }
+
 
         
     }
