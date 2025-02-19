@@ -11,10 +11,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Entity(name = "table_users" )
+@Builder
 public class UserEntity {
 
     @Id
