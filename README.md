@@ -69,4 +69,6 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 
 Caso queira criar o deploy o arquivo `Dockerfile` foi criado para gerar imagem para o deploy no Render.
 
+![alt text](image-1.png)
+
 
