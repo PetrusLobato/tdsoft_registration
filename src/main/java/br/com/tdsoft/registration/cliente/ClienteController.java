@@ -108,14 +108,15 @@ public class ClienteController {
 
         var deleteClient = this.clienteRepository.findById((id)).orElse(null);
 
-        if (!this.clienteRepository.existsById(id)) {
+        if (deleteClient == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não existe");
         }
 
         var userId = request.getAttribute("idUser");
-
+        
+    
         if(!deleteClient.getIdUser().equals(userId)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não tem permissão para essa tarefa");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Você não tem permissão para essa tarefa");
         }
 
         this.clienteRepository.deleteById(id);

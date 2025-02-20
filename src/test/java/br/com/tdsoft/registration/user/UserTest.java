@@ -45,7 +45,7 @@ public class UserTest {
 
 
     @Test
-    public void create_new_user() throws Exception{
+    public void create_new_user_test() throws Exception{
 
         var createUserTest = UserEntity.builder()
         .name("NAME_TESTE")
@@ -56,7 +56,8 @@ public class UserTest {
 
         mvc.perform(MockMvcRequestBuilders.post("/user/create")
        .contentType(MediaType.APPLICATION_JSON)
-       .content(new ObjectMapper().writeValueAsString(createUserTest)))
+       .content(new ObjectMapper().writeValueAsString(createUserTest))
+       .header("basic", createUserTest))
        .andExpect(MockMvcResultMatchers.status().isCreated());
        
     }
