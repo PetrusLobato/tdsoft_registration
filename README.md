@@ -31,6 +31,7 @@
 - Java 17 ou superior
 - Maven 3.6 ou superior
 - PostgreSQL instalado e em execução
+- Insomnia ou Apidog 
 
 ## Configuração do Banco de Dados
 Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados chamado `registration`. 
