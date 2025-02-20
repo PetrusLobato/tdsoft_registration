@@ -55,7 +55,7 @@ public class ClienteTest {
         // Precisa existir um usuario para poder cadastrar um cliente, porque é um relacionamento 1:N. 
         var result = userRepository.save(UserEntity.builder()
         .name("USER_CLIENTE")
-        .email("user_cliente@gmail.com")
+        .email("user_cliente1@gmail.com")
         .password(BCrypt.withDefaults().hashToString(12, "SENHA_CLIENTE".toCharArray()))
         .build());
 
@@ -82,7 +82,7 @@ public class ClienteTest {
            // Precisa existir um usuario para poder fazer a busca dos seus cliente. 
            var result = userRepository.save(UserEntity.builder()
            .name("USER_CLIENTE")
-           .email("user_cliente@gmail.com")
+           .email("user_cliente2@gmail.com")
            .password(BCrypt.withDefaults().hashToString(12, "SENHA_CLIENTE".toCharArray()))
            .build());
    
@@ -105,7 +105,7 @@ public class ClienteTest {
         // Precisa existir um usuario para poder  deletar o cliente. 
         var result = userRepository.save(UserEntity.builder()
         .name("USER_CLIENTE")
-        .email("user_cliente@gmail.com")
+        .email("user_cliente3@gmail.com")
         .password(BCrypt.withDefaults().hashToString(12, "SENHA_CLIENTE".toCharArray()))
         .build());
 
@@ -117,7 +117,6 @@ public class ClienteTest {
         .description("DESCRIÇÃO_TESTE")
         .idUser(result.getId())
         .build());
-
 
 
         mvc.perform(MockMvcRequestBuilders.delete("/cliente/" + createClienteTest.getId())

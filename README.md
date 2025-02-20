@@ -67,7 +67,7 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 
 Para entender melhor a funcionalidade do projeto, rode o comando no terminal:
  ```bash
-    mvn clean install
+    mvn clean test
    ```
 
 Antes de rodar os testes verifique se seu banco `Postegres` já estar rodando, caso não, verifique as variáveis de ambiente, no arquevo `.env`
