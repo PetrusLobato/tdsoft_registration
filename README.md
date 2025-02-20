@@ -65,6 +65,14 @@ Certifique-se de que o PostgreSQL esteja em execução e crie um banco de dados 
 
 ## Como executar os testes
 
+Para entender melhor a funcionalidade do projeto, rode o comando no terminal:
+ ```bash
+    mvn clean install
+   ```
+
+Antes de rodar os testes verifique se seu banco `Postegres` já estar rodando, caso não, verifique as variáveis de ambiente, no arquevo `.env`
+
+
 ## Deploy 
 
 Caso queira criar o deploy o arquivo `Dockerfile` foi criado para gerar imagem para o deploy no Render.

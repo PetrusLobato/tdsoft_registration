@@ -19,6 +19,7 @@ public class AuthenticationUser extends OncePerRequestFilter {
     private IUserRepository userRepository;
 
 
+    @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
