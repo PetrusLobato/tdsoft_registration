@@ -7,6 +7,7 @@
 <img  src="https://img.shields.io/github/languages/count/PetrusLobato/tdsoft_registration"  alt="Languages" />
 <img  src="https://img.shields.io/github/repo-size/PetrusLobato/tdsoft_registration"  alt="Repo size" />
 <img  src="https://img.shields.io/github/last-commit/PetrusLobato/tdsoft_registration"  alt="Last commit" />
+<img  src="https://img.shields.io/github/license/PetrusLobato/tdsoft_registration"  alt="License" />
 
 </p>
 </center>
