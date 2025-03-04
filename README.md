@@ -1,6 +1,17 @@
 # tdsoft_registration
 
 
+<center>
+<p  align="center">Métricas deste projeto:</p>
+<p  align="center">
+<img  src="https://img.shields.io/github/languages/count/PetrusLobato/tdsoft_registration"  alt="Languages" />
+<img  src="https://img.shields.io/github/repo-size/PetrusLobato/tdsoft_registration"  alt="Repo size" />
+<img  src="https://img.shields.io/github/last-commit/PetrusLobato/tdsoft_registration"  alt="Last commit" />
+
+</p>
+</center>
+
+
 ## Descrição do Projeto
 É um projeto em backend de Gerenciador de Clientes, desenvolvido utilizando Java (Spring Boot) e PostgreSQL. A API RESTful permite operações de criação, leitura, atualização e exclusão (CRUD) de clientes.
 
